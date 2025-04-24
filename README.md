@@ -43,7 +43,7 @@ pip install -r requirements.txt
 ## Example
 
 ```bash
-$ python main.py kubernetes_tutorial.pdf
+$ python main.py ./examples/kubernetes_tutorial.pdf
 What do you want to learn from the document?
 > What is this tutorial about?
 
