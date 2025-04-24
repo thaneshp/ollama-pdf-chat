@@ -8,8 +8,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from sys import argv
 
-# 1. Create the model
-llm = OllamaLLM(model='gemma3:1b')
+# 1. Create the model with streaming enabled
+llm = OllamaLLM(model='gemma3:1b', streaming=True)
 embeddings = OllamaEmbeddings(model='nomic-embed-text')
 
 # 2. Load the PDF file and create a retriever to be used for providing context
@@ -47,5 +47,9 @@ chain = (
 while True:
   question = input('What do you want to learn from the document?\n')
   print()
-  print(chain.invoke(question))
+
+  for chunk in chain.stream(question):
+    print(chunk, end='', flush=True)
+  
+  print()
   print()
